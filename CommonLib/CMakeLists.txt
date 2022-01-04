@@ -1,0 +1,30 @@
+#add_subdirectory(Common)
+#SET_PROPERTY(TARGET Common PROPERTY FOLDER "CommonLib")
+#
+#add_subdirectory(ListWidget)
+#SET_PROPERTY(TARGET ListWidget PROPERTY FOLDER "CommonLib")
+#
+#add_subdirectory(MainWindow)
+#SET_PROPERTY(TARGET MainWindow PROPERTY FOLDER "CommonLib")
+#
+#add_subdirectory(Primitive)
+#SET_PROPERTY(TARGET Primitive PROPERTY FOLDER "CommonLib")
+
+#添加子项目
+MACRO(SUBDIRLIST result curdir)
+	FILE(GLOB children RELATIVE ${curdir} ${curdir}/*)
+	SET(dirlist "")
+	FOREACH(child ${children})
+		IF(IS_DIRECTORY ${curdir}/${child})
+			LIST(APPEND dirlist ${child})
+		ENDIF()
+	ENDFOREACH()
+	SET(${result} ${dirlist})
+ENDMACRO()
+SUBDIRLIST(SRC_DIR_LIST ${CMAKE_CURRENT_SOURCE_DIR})
+FOREACH(src_dir ${SRC_DIR_LIST})
+	IF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${src_dir}/CMakeLists.txt")
+		add_subdirectory(${src_dir})
+		SET_PROPERTY(TARGET ${src_dir} PROPERTY FOLDER "CommonLib")
+	ENDIF(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${src_dir}/CMakeLists.txt")
+ENDFOREACH()

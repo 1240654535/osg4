@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <IncludePath>D:\my-program\c++\3rdParty\OSG64\include;D:\my-program\c++\3rdParty\OSG64\include\sqlite3;D:\my-program\c++\3rdParty\OSG64\include\tinyxml;D:\my-program\c++\3rdParty\OSG64\include\Eigen;D:\my-program\c++\3rdParty\OPENCV64\include;D:\my-program\c++\3rdParty\OPENCV64\include\opencv;D:\my-program\c++\3rdParty\OPENCV64\include\opencv2;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\my-program\c++\3rdParty\OSG64\lib;D:\my-program\c++\3rdParty\OSG64\lib\sqlite3_lib;D:\my-program\c++\3rdParty\OSG64\lib\tinyxml_lib;D:\my-program\c++\3rdParty\OPENCV64\lib\vc14;D:\my-program\c++\3rdParty\OPENCV64\lib\vc15;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>osgWidgetd.lib;osgVolumed.lib;osgUId.lib;osgTerraind.lib;osgSimd.lib;osgShadowd.lib;osgPresentationd.lib;osgParticled.lib;osgManipulatord.lib;osgFXd.lib;osgAnimationd.lib;OpenThreadsd.lib;osgd.lib;osgDBd.lib;osgUtild.lib;osgGAd.lib;osgViewerd.lib;osgTextd.lib;sqlite3.lib;opencv_world349d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>
