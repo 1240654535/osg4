@@ -13,6 +13,7 @@
 #include <osg/TexGen>
 #include <osg/TexEnv>
 #include "MHandleControl.h"
+#include <osg/Switch>
 using namespace std;
 
 
@@ -179,7 +180,7 @@ osg::ref_ptr<osg::Geode> DrawCircle(float radius, osg::Vec3 v) {
 	setLineWidth(3, geometry);
 	return geode;
 }
-//绘制太阳系
+//绘制太阳系(无显隐功能)
 void DrawSolarSystem() {
 	osg::ref_ptr<osgViewer::Viewer> viewer = new osgViewer::Viewer;
 	osg::ref_ptr<osg::Group> root = new osg::Group;
@@ -213,7 +214,42 @@ void DrawSolarSystem() {
 	viewer->run();
 	
 }
+//绘制太阳系(有显隐功能)
+void DrawSolarSystem_Switch() {
+	osg::ref_ptr<osgViewer::Viewer> viewer = new osgViewer::Viewer;
+	osg::ref_ptr<osg::Group> root = new osg::Group;
+	osg::ref_ptr<osg::Group> planetGroup = new osg::Group;
+	osg::ref_ptr<osg::Switch> circleGroup = new osg::Switch;
+	//此处星球与轨道线具备对应关系，轨道线在circleGroup的索引对应星球在planetGroup的索引加一
+	planetGroup->addChild(DrawPlanet(5, osg::Vec3(0, 0, 0)));
+	planetGroup->addChild(DrawPlanet(2.5, osg::Vec3(-10, 0, 0)));
+	planetGroup->addChild(DrawPlanet(1.8, osg::Vec3(-20, 0, 0)));
+	planetGroup->addChild(DrawPlanet(1.2, osg::Vec3(-30, 0, 0)));
+	planetGroup->addChild(DrawPlanet(2, osg::Vec3(-40, 0, 0)));
+	planetGroup->addChild(DrawPlanet(1, osg::Vec3(-50, 0, 0)));
+	planetGroup->addChild(DrawPlanet(2.1, osg::Vec3(-60, 0, 0)));
+	planetGroup->addChild(DrawPlanet(3.1, osg::Vec3(-70, 0, 0)));
+	planetGroup->addChild(DrawPlanet(2.2, osg::Vec3(-80, 0, 0)));
+	circleGroup->addChild(DrawCircle(10, osg::Vec3(0, 0, 0)));
+	circleGroup->addChild(DrawCircle(20, osg::Vec3(0, 0, 0)));
+	circleGroup->addChild(DrawCircle(30, osg::Vec3(0, 0, 0)));
+	circleGroup->addChild(DrawCircle(40, osg::Vec3(0, 0, 0)));
+	circleGroup->addChild(DrawCircle(50, osg::Vec3(0, 0, 0)));
+	circleGroup->addChild(DrawCircle(60, osg::Vec3(0, 0, 0)));
+	circleGroup->addChild(DrawCircle(70, osg::Vec3(0, 0, 0)));
+	circleGroup->addChild(DrawCircle(80, osg::Vec3(0, 0, 0)));
+	//设置线段用于与几何体相交
+	MHandleControl::getInterSections(planetGroup, osg::Vec3(-90, 1, 2), osg::Vec3(1, 3, 4), root);
+	root->addChild(planetGroup.get());
+	root->addChild(circleGroup.get());
+	osgUtil::Optimizer optimizer;
+	optimizer.optimize(root.get());
+	viewer->setSceneData(root.get());
+	viewer->addEventHandler(new MHandleControl);
+	viewer->setUpViewOnSingleScreen();
+	viewer->run();
 
+}
 int main()
 {
 	cout << "1、绘制点" << endl;
@@ -221,6 +257,7 @@ int main()
 	cout << "3、绘制点划线" << endl;
 	cout << "4、绘制球体" << endl;
 	cout << "5、绘制太阳系" << endl;
+	cout << "6、有显隐状态的太阳系" << endl;
 	int choise;
 	cin >> choise;
 	switch (choise)
@@ -277,6 +314,9 @@ int main()
 		break;
 	case 5:
 		DrawSolarSystem();
+		break;
+	case 6:
+		DrawSolarSystem_Switch();
 		break;
 	default:
 		break;
