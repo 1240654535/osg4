@@ -5,7 +5,7 @@
 * @author 作者：z00105
 * @data 创建时间：2020 -12 -10
 **************************************************************************************************/
-
+#include <windows.h>
 #include <osg/NodeVisitor>
 #include <windows.h>
 #include <osg/Geometry>

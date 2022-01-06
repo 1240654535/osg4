@@ -6,10 +6,9 @@
 **************************************************************************************************/
 #ifndef MODEL_CALLBACK_H
 #define	MODEL_CALLBACK_H
-
+#include <windows.h>
 #include <osg/Node>
 #include <osg/NodeCallback>
-#include <CommonLib/Callback/Export.h>
 #include <osg/MatrixTransform>
 
 /**
@@ -18,7 +17,7 @@
 * @note详细说明：
 * @author 作者：z00105
 */
-class CALLBACK_EXPORT CModelCallback : public osg::NodeCallback
+class CModelCallback : public osg::NodeCallback
 {
 public:
 	CModelCallback();
@@ -26,10 +25,11 @@ public:
 	~CModelCallback();
 
 	/** Callback method called by the NodeVisitor when visiting a node.*/
+	//重写()操作符
 	virtual void operator()(osg::Node* pNode, osg::NodeVisitor* pNv);
 
 protected:
-	double dAngle;
+	double m_dAngle;
 };
 
 /**
@@ -38,7 +38,7 @@ protected:
 * @note详细说明：
 * @author 作者：z00105
 */
-class CALLBACK_EXPORT CModelCallbackNode : public osg::MatrixTransform
+class CModelCallbackNode : public osg::MatrixTransform
 {
 public:
 	CModelCallbackNode();

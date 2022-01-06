@@ -1,10 +1,10 @@
-﻿#include <CommonLib/Callback/Callback.h>
+﻿#include "Callback.h"
 #include <osgDB/ReadFile>
 #include "osg/CullFace"
 
 CModelCallback::CModelCallback()
 	:osg::NodeCallback()
-	,dAngle(0.0)
+	,m_dAngle(0.0)
 {
 
 }
@@ -21,9 +21,9 @@ void CModelCallback::operator()(osg::Node* pNode, osg::NodeVisitor* pNv)
 	if (rpMt.valid())
 	{
 		osg::Matrix mtRotate;
-		mtRotate.makeRotate(dAngle,osg::Z_AXIS);//绕z轴旋转dAngle角度
+		mtRotate.makeRotate(m_dAngle,osg::Z_AXIS);//绕z轴旋转dAngle角度
 		rpMt->setMatrix(mtRotate);//设置矩阵
-		dAngle+=0.01;
+		m_dAngle+=0.01;
 	}
 	traverse(pNode,pNv);//继续遍历
 }
